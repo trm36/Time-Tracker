@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		347D760D19E5B96F00334215 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 347D760B19E5B96F00334215 /* Model.xcdatamodeld */; };
+		347D761019E5BAC000334215 /* WorkPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 347D760F19E5BAC000334215 /* WorkPeriod.m */; };
+		347D761319E5BAC000334215 /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 347D761219E5BAC000334215 /* Project.m */; };
+		347D761919E5BB3600334215 /* Stack.m in Sources */ = {isa = PBXBuildFile; fileRef = 347D761819E5BB3600334215 /* Stack.m */; };
+		347D761C19E5BB8100334215 /* TTProjectListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 347D761B19E5BB8100334215 /* TTProjectListViewController.m */; };
+		347D762019E5BC1B00334215 /* TTProjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 347D761F19E5BC1B00334215 /* TTProjectViewController.m */; };
+		347D762519E5BCA600334215 /* TRMTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 347D762419E5BCA600334215 /* TRMTimer.m */; };
 		7116F77619421700006C8F06 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7116F77519421700006C8F06 /* Foundation.framework */; };
 		7116F77819421700006C8F06 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7116F77719421700006C8F06 /* CoreGraphics.framework */; };
 		7116F77A19421700006C8F06 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7116F77919421700006C8F06 /* UIKit.framework */; };
@@ -32,6 +39,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		347D760C19E5B96F00334215 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		347D760E19E5BAC000334215 /* WorkPeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkPeriod.h; sourceTree = "<group>"; };
+		347D760F19E5BAC000334215 /* WorkPeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkPeriod.m; sourceTree = "<group>"; };
+		347D761119E5BAC000334215 /* Project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Project.h; sourceTree = "<group>"; };
+		347D761219E5BAC000334215 /* Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Project.m; sourceTree = "<group>"; };
+		347D761719E5BB3600334215 /* Stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Stack.h; sourceTree = "<group>"; };
+		347D761819E5BB3600334215 /* Stack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Stack.m; sourceTree = "<group>"; };
+		347D761A19E5BB8100334215 /* TTProjectListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTProjectListViewController.h; sourceTree = "<group>"; };
+		347D761B19E5BB8100334215 /* TTProjectListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTProjectListViewController.m; sourceTree = "<group>"; };
+		347D761E19E5BC1B00334215 /* TTProjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTProjectViewController.h; sourceTree = "<group>"; };
+		347D761F19E5BC1B00334215 /* TTProjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTProjectViewController.m; sourceTree = "<group>"; };
+		347D762319E5BCA600334215 /* TRMTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRMTimer.h; sourceTree = "<group>"; };
+		347D762419E5BCA600334215 /* TRMTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRMTimer.m; sourceTree = "<group>"; };
 		7116F77219421700006C8F06 /* Time-Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Time-Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7116F77519421700006C8F06 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7116F77719421700006C8F06 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -74,6 +94,64 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		347D761419E5BB0D00334215 /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				347D760B19E5B96F00334215 /* Model.xcdatamodeld */,
+				347D761719E5BB3600334215 /* Stack.h */,
+				347D761819E5BB3600334215 /* Stack.m */,
+				347D761519E5BB1600334215 /* Project */,
+				347D761619E5BB2100334215 /* Work Period */,
+			);
+			name = "Core Data";
+			sourceTree = "<group>";
+		};
+		347D761519E5BB1600334215 /* Project */ = {
+			isa = PBXGroup;
+			children = (
+				347D761119E5BAC000334215 /* Project.h */,
+				347D761219E5BAC000334215 /* Project.m */,
+			);
+			name = Project;
+			sourceTree = "<group>";
+		};
+		347D761619E5BB2100334215 /* Work Period */ = {
+			isa = PBXGroup;
+			children = (
+				347D760E19E5BAC000334215 /* WorkPeriod.h */,
+				347D760F19E5BAC000334215 /* WorkPeriod.m */,
+			);
+			name = "Work Period";
+			sourceTree = "<group>";
+		};
+		347D761D19E5BB8A00334215 /* List View */ = {
+			isa = PBXGroup;
+			children = (
+				347D761A19E5BB8100334215 /* TTProjectListViewController.h */,
+				347D761B19E5BB8100334215 /* TTProjectListViewController.m */,
+			);
+			name = "List View";
+			sourceTree = "<group>";
+		};
+		347D762119E5BC2000334215 /* Project View */ = {
+			isa = PBXGroup;
+			children = (
+				347D761E19E5BC1B00334215 /* TTProjectViewController.h */,
+				347D761F19E5BC1B00334215 /* TTProjectViewController.m */,
+				347D762219E5BC8700334215 /* Timer */,
+			);
+			name = "Project View";
+			sourceTree = "<group>";
+		};
+		347D762219E5BC8700334215 /* Timer */ = {
+			isa = PBXGroup;
+			children = (
+				347D762319E5BCA600334215 /* TRMTimer.h */,
+				347D762419E5BCA600334215 /* TRMTimer.m */,
+			);
+			name = Timer;
+			sourceTree = "<group>";
+		};
 		7116F76919421700006C8F06 = {
 			isa = PBXGroup;
 			children = (
@@ -109,6 +187,9 @@
 			children = (
 				7116F78419421700006C8F06 /* TTAppDelegate.h */,
 				7116F78519421700006C8F06 /* TTAppDelegate.m */,
+				347D761D19E5BB8A00334215 /* List View */,
+				347D762119E5BC2000334215 /* Project View */,
+				347D761419E5BB0D00334215 /* Core Data */,
 				7116F78719421700006C8F06 /* Images.xcassets */,
 				7116F77C19421700006C8F06 /* Supporting Files */,
 			);
@@ -240,8 +321,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				347D761C19E5BB8100334215 /* TTProjectListViewController.m in Sources */,
+				347D762519E5BCA600334215 /* TRMTimer.m in Sources */,
+				347D761919E5BB3600334215 /* Stack.m in Sources */,
+				347D762019E5BC1B00334215 /* TTProjectViewController.m in Sources */,
 				7116F78619421700006C8F06 /* TTAppDelegate.m in Sources */,
+				347D761019E5BAC000334215 /* WorkPeriod.m in Sources */,
 				7116F78219421700006C8F06 /* main.m in Sources */,
+				347D761319E5BAC000334215 /* Project.m in Sources */,
+				347D760D19E5B96F00334215 /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -438,6 +526,7 @@
 				7116F7A019421700006C8F06 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7116F7A119421700006C8F06 /* Build configuration list for PBXNativeTarget "Time-TrackerTests" */ = {
 			isa = XCConfigurationList;
@@ -446,8 +535,22 @@
 				7116F7A319421700006C8F06 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		347D760B19E5B96F00334215 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				347D760C19E5B96F00334215 /* Model.xcdatamodel */,
+			);
+			currentVersion = 347D760C19E5B96F00334215 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 7116F76A19421700006C8F06 /* Project object */;
 }
