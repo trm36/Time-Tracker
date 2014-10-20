@@ -2,7 +2,7 @@
 //  Project.h
 //  Time-Tracker
 //
-//  Created by Taylor Mott on 10.8.14.
+//  Created by Taylor Mott on 10.18.14.
 //  Copyright (c) 2014 DevMountain. All rights reserved.
 //
 
@@ -14,7 +14,6 @@
 @interface Project : NSManagedObject
 
 @property (nonatomic, retain) NSString * title;
-@property (nonatomic, retain) NSNumber * totalTime;
 @property (nonatomic, retain) NSSet *workPeriod;
 @end
 

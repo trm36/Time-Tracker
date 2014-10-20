@@ -8,12 +8,28 @@
 
 #import "TTProjectListViewController.h"
 #import "TTProjectViewController.h"
+#import "TTProjectTableViewDataSource.h"
+#import "TTProjectController.h"
 
-@interface TTProjectListViewController ()
+@interface TTProjectListViewController () <UITableViewDelegate>
+
+@property (strong, nonatomic) UITableView *projectTable;
+@property (strong, nonatomic) TTProjectTableViewDataSource *dataSource;
 
 @end
 
 @implementation TTProjectListViewController
+
+- (void)setupUI
+{
+    UIBarButtonItem *newProjectButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(createNewProject)];
+    self.navigationItem.rightBarButtonItem = newProjectButton;
+    
+    self.projectTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    self.projectTable.delegate = self;
+    self.projectTable.dataSource = self.dataSource;
+    [self.view addSubview:self.projectTable];
+}
 
 - (void)viewDidLoad
 {
@@ -21,8 +37,7 @@
     // Do any additional setup after loading the view.
     self.title = @"Time Tracker";
     
-    UIBarButtonItem *newProjectButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(createNewProject)];
-    self.navigationItem.rightBarButtonItem = newProjectButton;
+    [self setupUI];
 }
 
 - (void)didReceiveMemoryWarning
@@ -31,9 +46,16 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void) createNewProject
+- (void)createNewProject
 {
     TTProjectViewController *projectViewController = [TTProjectViewController new];
+    [self.navigationController pushViewController:projectViewController animated:YES];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    TTProjectViewController *projectViewController = [TTProjectViewController new];
+    projectViewController.project = [TTProjectController sharedInstance].projects[indexPath.row];
     [self.navigationController pushViewController:projectViewController animated:YES];
 }
 

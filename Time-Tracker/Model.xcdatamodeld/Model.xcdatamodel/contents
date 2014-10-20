@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6244" systemVersion="13F34" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6244" systemVersion="14A389" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Project" representedClassName="Project" syncable="YES">
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="totalTime" optional="YES" attributeType="Integer 64" minValueString="0" defaultValueString="0" syncable="YES"/>
         <relationship name="workPeriod" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="WorkPeriod" inverseName="project" inverseEntity="WorkPeriod" syncable="YES"/>
     </entity>
     <entity name="WorkPeriod" representedClassName="WorkPeriod" syncable="YES">
@@ -12,7 +11,7 @@
         <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="workPeriod" inverseEntity="Project" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Project" positionX="-63" positionY="-18" width="128" height="88"/>
+        <element name="Project" positionX="-63" positionY="-18" width="128" height="73"/>
         <element name="WorkPeriod" positionX="225" positionY="18" width="128" height="103"/>
     </elements>
 </model>

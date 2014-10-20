@@ -8,6 +8,8 @@
 
 #import "TTProjectViewController.h"
 #import "TRMTimer.h"
+#import "WorkPeriod.h"
+#import "TTProjectController.h"
 
 CGFloat const NAV_BAR_HEIGHT = 64;
 CGFloat const MARGIN = 15;
@@ -15,6 +17,7 @@ CGFloat const SPACING = 8;
 CGFloat const PROJECT_TITLE_HEIGHT = 35;
 CGFloat const TIMER_TITLE_LABEL_HEIGHT = 15;
 CGFloat const TIMER_HEIGHT = 55;
+CGFloat const TOOLBAR_HEIGHT = 44;
 
 @interface TTProjectViewController ()
 
@@ -30,12 +33,8 @@ CGFloat const TIMER_HEIGHT = 55;
 
 @implementation TTProjectViewController
 
-- (void)viewDidLoad
+- (void)setUpUI
 {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
-    //SETUP UI
     CGFloat totalHeight = NAV_BAR_HEIGHT + SPACING;
     
     self.projectTitle = [[UITextField alloc] initWithFrame:CGRectMake(MARGIN, totalHeight, self.view.frame.size.width - 2 * MARGIN, PROJECT_TITLE_HEIGHT)];
@@ -62,11 +61,28 @@ CGFloat const TIMER_HEIGHT = 55;
     [self.view addSubview:self.workPeriodTimerLabel];
     totalHeight = totalHeight + TIMER_HEIGHT + SPACING;
     
+    self.navigationController.toolbarHidden = NO;
+    UIBarButtonItem *addPeriodButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addPeriodButtonPressed)];
+    addPeriodButton.enabled = NO;
+    UIBarButtonItem *clockInButton = [[UIBarButtonItem alloc] initWithTitle:@"Clock In" style:UIBarButtonItemStylePlain target:self action:@selector(clockInButtonPressed)];
+    UIBarButtonItem *clockOutButton = [[UIBarButtonItem alloc] initWithTitle:@"Clock Out" style:UIBarButtonItemStylePlain target:self action:@selector(clockOutButtonPressed)];
+    UIBarButtonItem *reportButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(reportButtonPressed)];
+    reportButton.enabled = NO;
+    UIBarButtonItem *flexSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    NSArray *toolbarItems = [[NSArray alloc] initWithObjects:addPeriodButton, flexSpace, clockInButton, flexSpace, clockOutButton, flexSpace, reportButton, nil];
+    [self setToolbarItems:toolbarItems];
     
+    self.workPeriodTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, totalHeight, self.view.frame.size.width, self.view.frame.size.height - totalHeight - TOOLBAR_HEIGHT)];
+    [self.view addSubview:self.workPeriodTableView];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
     
-    //UIToolbar *toolbar = [[UIToolbar alloc] init];
-    //toolbar.barPosition = UIBarPositionBottom;
-    
+    //SETUP UI
+    [self setUpUI];
     
     //SETUP TIMERS
     self.projectTimer = [[TRMTimer alloc] initAsCountupTimer:YES];
@@ -78,6 +94,11 @@ CGFloat const TIMER_HEIGHT = 55;
     [self.workPeriodTimer setTimer:0];
     [self updateWorkPeriodTimeLabel];
     
+    [self registerForNotifications];
+    
+    //SETUP or LOAD PROJECT
+    [self loadProject];
+    
     self.currentWorkPeriodStartDate = nil;
 }
 
@@ -85,6 +106,21 @@ CGFloat const TIMER_HEIGHT = 55;
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)loadProject
+{
+    if (self.project == nil)
+    {
+        self.project = [[TTProjectController sharedInstance] addProjectWithTitle:self.projectTitle.text];
+    }
+    else
+    {
+        self.projectTitle.text = self.project.title;
+        NSTimeInterval totalTime = [self calculateTotalSeconds];
+        [self.projectTimer setTimer:totalTime];
+        self.projectTimerLabel.text = [self minutesAndSecondsFromSeconds:totalTime];
+    }
 }
 
 - (void)dealloc
@@ -147,9 +183,22 @@ CGFloat const TIMER_HEIGHT = 55;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"timerCleared" object:nil];
 }
 
+- (void)save
+{
+    [self hideKeyboard];
+    self.project.title = self.projectTitle.text;
+    [[TTProjectController sharedInstance] synchronize];
+    NSLog(@"%@: Saved to core data", [NSDate date]);
+}
+
+- (void)hideKeyboard
+{
+    [self.projectTitle resignFirstResponder];
+}
+
 #pragma mark - Toolbar Button Methods
 
-- (void)clockInButton
+- (void)clockInButtonPressed
 {
     if (!self.currentWorkPeriodStartDate)
     {
@@ -158,15 +207,14 @@ CGFloat const TIMER_HEIGHT = 55;
         [self.workPeriodTimer startTimer];
     }
 }
-- (void)clockOutButton
+- (void)clockOutButtonPressed
 {
     if(self.currentWorkPeriodStartDate)
     {
-        WorkPeriod *workPeriod = [WorkPeriod new];
-        workPeriod.startDate = self.currentWorkPeriodStartDate;
-        workPeriod.endDate = [NSDate date];
-        workPeriod.project = self.project;
-        [self.project addWorkPeriodObject:workPeriod];
+        [[TTProjectController sharedInstance] addWorkPeriodWithStartDate:self.currentWorkPeriodStartDate
+                                                                 endDate:[NSDate date]
+                                                                    memo:@""
+                                                                 project:self.project];
         self.currentWorkPeriodStartDate = nil;
         [self.projectTimer stopTimer];
         [self.projectTimer setTimer:[self calculateTotalSeconds]];
@@ -175,11 +223,11 @@ CGFloat const TIMER_HEIGHT = 55;
     }
 }
 
-- (void)reportButton
+- (void)reportButtonPressed
 {
 }
 
-- (void)addButton
+- (void)addPeriodButtonPressed
 {
 }
 
