@@ -27,6 +27,7 @@
     
     self.projectTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     self.projectTable.delegate = self;
+    self.dataSource = [TTProjectTableViewDataSource new];
     self.projectTable.dataSource = self.dataSource;
     [self.view addSubview:self.projectTable];
 }
@@ -38,6 +39,11 @@
     self.title = @"Time Tracker";
     
     [self setupUI];
+}
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    [self.projectTable reloadData];
 }
 
 - (void)didReceiveMemoryWarning

@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface TTProjectTableViewDataSource : NSObject
+@interface TTProjectTableViewDataSource : NSObject <UITableViewDataSource>
+
+- (void)registerTableView:(UITableView *)tableView;
 
 @end

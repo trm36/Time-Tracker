@@ -10,6 +10,7 @@
 #import "TRMTimer.h"
 #import "WorkPeriod.h"
 #import "TTProjectController.h"
+#import "TTWorkPeriodTableViewDataSource.h"
 
 CGFloat const NAV_BAR_HEIGHT = 64;
 CGFloat const MARGIN = 15;
@@ -19,15 +20,16 @@ CGFloat const TIMER_TITLE_LABEL_HEIGHT = 15;
 CGFloat const TIMER_HEIGHT = 55;
 CGFloat const TOOLBAR_HEIGHT = 44;
 
-@interface TTProjectViewController ()
+@interface TTProjectViewController () <UITextFieldDelegate>
 
-@property (strong, nonatomic) UITextField   *projectTitle;
-@property (strong, nonatomic) UILabel       *projectTimerLabel;
-@property (strong, nonatomic) UILabel       *workPeriodTimerLabel;
-@property (strong, nonatomic) UITableView   *workPeriodTableView;
-@property (strong, nonatomic) TRMTimer      *projectTimer;
-@property (strong, nonatomic) TRMTimer      *workPeriodTimer;
-@property (strong, nonatomic) NSDate        *currentWorkPeriodStartDate;
+@property (strong, nonatomic) UITextField                       *projectTitle;
+@property (strong, nonatomic) UILabel                           *projectTimerLabel;
+@property (strong, nonatomic) UILabel                           *workPeriodTimerLabel;
+@property (strong, nonatomic) UITableView                       *workPeriodTableView;
+@property (strong, nonatomic) TRMTimer                          *projectTimer;
+@property (strong, nonatomic) TRMTimer                          *workPeriodTimer;
+@property (strong, nonatomic) NSDate                            *currentWorkPeriodStartDate;
+@property (strong, nonatomic) TTWorkPeriodTableViewDataSource   *workPeriodTableViewDataSource;
 
 @end
 
@@ -37,30 +39,37 @@ CGFloat const TOOLBAR_HEIGHT = 44;
 {
     CGFloat totalHeight = NAV_BAR_HEIGHT + SPACING;
     
+    //PROJECT TITLE TEXT FIELD
     self.projectTitle = [[UITextField alloc] initWithFrame:CGRectMake(MARGIN, totalHeight, self.view.frame.size.width - 2 * MARGIN, PROJECT_TITLE_HEIGHT)];
     //self.projectTitle.text = self.project.title;
     self.projectTitle.placeholder = @"Project Title";
+    self.projectTitle.delegate = self;
     [self.view addSubview:self.projectTitle];
     totalHeight = totalHeight + PROJECT_TITLE_HEIGHT + SPACING;
     
+    //PROJECT TIME LABEL
     UILabel *totalProjectTimeTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(MARGIN, totalHeight, (self.view.frame.size.width - 2 * MARGIN) / 2, TIMER_TITLE_LABEL_HEIGHT)];
     totalProjectTimeTitleLabel.text = @"Total Project Time";
     [self.view addSubview:totalProjectTimeTitleLabel];
     
+    //WORK PERIOD TIME LABEL
     UILabel *currentWorkPeriodTimeTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(MARGIN + ((self.view.frame.size.width - 2 * MARGIN) / 2), totalHeight, (self.view.frame.size.width - 2 * MARGIN) / 2, TIMER_TITLE_LABEL_HEIGHT)];
     currentWorkPeriodTimeTitleLabel.text = @"Current Work Period Time";
     [self.view addSubview:currentWorkPeriodTimeTitleLabel];
     totalHeight = totalHeight + TIMER_TITLE_LABEL_HEIGHT + SPACING;
     
+    //PROJECT TIMER LABEL
     self.projectTimerLabel = [[UILabel alloc] initWithFrame:CGRectMake(MARGIN, totalHeight, (self.view.frame.size.width - 2 * MARGIN) / 2, TIMER_HEIGHT)];
     self.projectTimerLabel.text = [self minutesAndSecondsFromSeconds:[self calculateTotalSeconds]];
     [self.view addSubview:self.projectTimerLabel];
     
+    //WORK PERIOD TIMER LABEL
     self.workPeriodTimerLabel = [[UILabel alloc] initWithFrame:CGRectMake(MARGIN + ((self.view.frame.size.width - 2 * MARGIN) / 2), totalHeight, (self.view.frame.size.width - 2 * MARGIN) / 2, TIMER_HEIGHT)];
     self.workPeriodTimerLabel.text = @"0:00";
     [self.view addSubview:self.workPeriodTimerLabel];
     totalHeight = totalHeight + TIMER_HEIGHT + SPACING;
     
+    //TOOLBAR
     self.navigationController.toolbarHidden = NO;
     UIBarButtonItem *addPeriodButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addPeriodButtonPressed)];
     addPeriodButton.enabled = NO;
@@ -72,7 +81,11 @@ CGFloat const TOOLBAR_HEIGHT = 44;
     NSArray *toolbarItems = [[NSArray alloc] initWithObjects:addPeriodButton, flexSpace, clockInButton, flexSpace, clockOutButton, flexSpace, reportButton, nil];
     [self setToolbarItems:toolbarItems];
     
+    
+    //WORK PERIOD TABLE VIEW
     self.workPeriodTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, totalHeight, self.view.frame.size.width, self.view.frame.size.height - totalHeight - TOOLBAR_HEIGHT)];
+    self.workPeriodTableViewDataSource = [TTWorkPeriodTableViewDataSource new];
+    self.workPeriodTableView.dataSource = self.workPeriodTableViewDataSource;
     [self.view addSubview:self.workPeriodTableView];
 }
 
@@ -121,6 +134,8 @@ CGFloat const TOOLBAR_HEIGHT = 44;
         [self.projectTimer setTimer:totalTime];
         self.projectTimerLabel.text = [self minutesAndSecondsFromSeconds:totalTime];
     }
+    
+    [self reloadWorkPeriodTableView];
 }
 
 - (void)dealloc
@@ -183,6 +198,14 @@ CGFloat const TOOLBAR_HEIGHT = 44;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"timerCleared" object:nil];
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self hideKeyboard];
+    [self save];
+    
+    return YES;
+}
+
 - (void)save
 {
     [self hideKeyboard];
@@ -220,6 +243,8 @@ CGFloat const TOOLBAR_HEIGHT = 44;
         [self.projectTimer setTimer:[self calculateTotalSeconds]];
         [self updateProjectTimeLabel];
         [self.workPeriodTimer clearTimer];
+        
+        [self reloadWorkPeriodTableView];
     }
 }
 
@@ -229,6 +254,12 @@ CGFloat const TOOLBAR_HEIGHT = 44;
 
 - (void)addPeriodButtonPressed
 {
+}
+
+- (void)reloadWorkPeriodTableView
+{
+    self.workPeriodTableViewDataSource.workPeriods = self.project.workPeriod.allObjects;
+    [self.workPeriodTableView reloadData];
 }
 
 /*

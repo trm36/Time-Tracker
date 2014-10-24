@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		341CEF8819F30BAE008AAA05 /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 341CEF8719F30BAE008AAA05 /* Project.m */; };
 		341CEF8B19F44360008AAA05 /* TTProjectTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 341CEF8A19F44360008AAA05 /* TTProjectTableViewDataSource.m */; };
+		3438985E19F74A8600F6B354 /* TTWorkPeriodTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 3438985D19F74A8600F6B354 /* TTWorkPeriodTableViewDataSource.m */; };
+		3438986119F752D100F6B354 /* TTWorkPeriodDatePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3438986019F752D100F6B354 /* TTWorkPeriodDatePickerViewController.m */; };
 		347D760D19E5B96F00334215 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 347D760B19E5B96F00334215 /* Model.xcdatamodeld */; };
 		347D761019E5BAC000334215 /* WorkPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = 347D760F19E5BAC000334215 /* WorkPeriod.m */; };
 		347D761919E5BB3600334215 /* Stack.m in Sources */ = {isa = PBXBuildFile; fileRef = 347D761819E5BB3600334215 /* Stack.m */; };
@@ -45,6 +47,10 @@
 		341CEF8719F30BAE008AAA05 /* Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Project.m; sourceTree = "<group>"; };
 		341CEF8919F44360008AAA05 /* TTProjectTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTProjectTableViewDataSource.h; sourceTree = "<group>"; };
 		341CEF8A19F44360008AAA05 /* TTProjectTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTProjectTableViewDataSource.m; sourceTree = "<group>"; };
+		3438985C19F74A8600F6B354 /* TTWorkPeriodTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTWorkPeriodTableViewDataSource.h; sourceTree = "<group>"; };
+		3438985D19F74A8600F6B354 /* TTWorkPeriodTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTWorkPeriodTableViewDataSource.m; sourceTree = "<group>"; };
+		3438985F19F752D100F6B354 /* TTWorkPeriodDatePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTWorkPeriodDatePickerViewController.h; sourceTree = "<group>"; };
+		3438986019F752D100F6B354 /* TTWorkPeriodDatePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTWorkPeriodDatePickerViewController.m; sourceTree = "<group>"; };
 		347D760C19E5B96F00334215 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		347D760E19E5BAC000334215 /* WorkPeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkPeriod.h; sourceTree = "<group>"; };
 		347D760F19E5BAC000334215 /* WorkPeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkPeriod.m; sourceTree = "<group>"; };
@@ -148,6 +154,10 @@
 			children = (
 				347D761E19E5BC1B00334215 /* TTProjectViewController.h */,
 				347D761F19E5BC1B00334215 /* TTProjectViewController.m */,
+				3438985F19F752D100F6B354 /* TTWorkPeriodDatePickerViewController.h */,
+				3438986019F752D100F6B354 /* TTWorkPeriodDatePickerViewController.m */,
+				3438985C19F74A8600F6B354 /* TTWorkPeriodTableViewDataSource.h */,
+				3438985D19F74A8600F6B354 /* TTWorkPeriodTableViewDataSource.m */,
 				347D762219E5BC8700334215 /* Timer */,
 			);
 			name = "Project View";
@@ -331,11 +341,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3438985E19F74A8600F6B354 /* TTWorkPeriodTableViewDataSource.m in Sources */,
 				347D761C19E5BB8100334215 /* TTProjectListViewController.m in Sources */,
 				347D762519E5BCA600334215 /* TRMTimer.m in Sources */,
 				347D761919E5BB3600334215 /* Stack.m in Sources */,
 				341CEF8B19F44360008AAA05 /* TTProjectTableViewDataSource.m in Sources */,
 				341CEF8819F30BAE008AAA05 /* Project.m in Sources */,
+				3438986119F752D100F6B354 /* TTWorkPeriodDatePickerViewController.m in Sources */,
 				34B91B6419F0BD0700483F62 /* TTProjectController.m in Sources */,
 				347D762019E5BC1B00334215 /* TTProjectViewController.m in Sources */,
 				7116F78619421700006C8F06 /* TTAppDelegate.m in Sources */,
